@@ -45,6 +45,9 @@ class Featured_Post
         add_action('pre_get_posts', array(&$this,
             'pre_get_posts'
         ));
+        add_filter('post_class', array(&$this,
+            'add_post_class'
+        ), 10, 3);
     }
     function admin_init() {
         add_filter('current_screen', array(&$this,
@@ -223,6 +226,23 @@ class Featured_Post
     }
     function load_featured_textdomain() {
         load_plugin_textdomain( 'featured-post', false, dirname( plugin_basename( __FILE__ ) ) . '/langs/' );
+    }
+
+    /**
+     * Add featured class to featured posts
+     *
+     * @param array $classes An array of post classes.
+     * @param string $class A comma-separated list of additional classes added to the post.
+     * @param int $post_id The post ID.
+     *
+     * @return array An array of post classes.
+     */
+    function add_post_class( $classes, $class, $post_id ) {
+        if ( get_post_meta( $post_id, '_is_featured', true ) === 'yes' ) {
+            $classes[] = 'featured';
+        }
+
+        return $classes;
     }
 }
 class Featured_Post_Widget extends WP_Widget
