@@ -232,9 +232,9 @@ class Featured_Post_Widget extends WP_Widget
         parent::WP_Widget(false, $name = __( 'Featured Post', 'featured-post' ) );
     }
     function form($instance) {
-        $title = esc_attr($instance['title']);
-        $type = esc_attr($instance['post_type']);
-        $num = (int)esc_attr($instance['num']);
+        $title = isset($instance['title']) ? esc_attr($instance['title']) : '';
+        $type = isset($instance['post_type']) ? esc_attr($instance['post_type']) : '';
+        $num = isset($instance['num']) ? (int)esc_attr($instance['num']) : 10;
         $this->post_types = get_post_types(array(
             '_builtin' => false,
         ) , 'names', 'or');
