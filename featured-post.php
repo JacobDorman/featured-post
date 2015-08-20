@@ -249,7 +249,7 @@ class Featured_Post_Widget extends WP_Widget
 {
     private $post_types = array();
     function __construct() {
-        parent::WP_Widget(false, $name = __( 'Featured Post', 'featured-post' ) );
+        parent::__construct(false, $name = __( 'Featured Post', 'featured-post' ) );
     }
     function form($instance) {
         $title = isset($instance['title']) ? esc_attr($instance['title']) : '';
